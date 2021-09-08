@@ -79,7 +79,7 @@ class Irregularity(IdModel, NameModel):
 
 class Flag(IdModel, NameModel):
     irregularity = models.ForeignKey(Irregularity, on_delete=models.CASCADE)
-    tender = models.ForeignKey(Tender, on_delete=models.CASCADE)
+    tender = models.ForeignKey(Tender, on_delete=models.CASCADE, null=True)
     lot = models.ForeignKey(Lot, on_delete=models.CASCADE, null=True)
     data = models.JSONField(null=True)
 
