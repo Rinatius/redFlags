@@ -9,8 +9,8 @@ class IdModel(models.Model):
 
 
 class NameModel(models.Model):
-    name = models.TextField(blank=True)
-    description = models.TextField(blank=True)
+    name = models.TextField(null=True)
+    description = models.TextField(null=True)
 
     class Meta:
         abstract = True
@@ -60,7 +60,7 @@ class Lot(IdModel, NameModel):
 
 
 class Bid(IdModel):
-    price = models.FloatField()
+    price = models.FloatField(null=True)
     status = models.CharField(blank=True, max_length=200)
     time = models.DateTimeField(null=True)
     won = models.BooleanField(null=True)
