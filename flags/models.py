@@ -67,9 +67,6 @@ class Bid(IdModel):
     lot = models.ForeignKey(Lot, on_delete=models.CASCADE)
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.name
-
 
 class Irregularity(IdModel, NameModel):
 
