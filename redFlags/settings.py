@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'flags.apps.FlagsConfig',
     'corsheaders',
     'rest_framework',
+    'django_filters',
     'users'
 ]
 
@@ -66,7 +67,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 ROOT_URLCONF = 'redFlags.urls'
@@ -74,8 +76,7 @@ ROOT_URLCONF = 'redFlags.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
