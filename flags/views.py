@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.generic import ListView
 from rest_framework import viewsets
+from rest_framework_bulk import BulkModelViewSet
 
 from flags.models import Entity, Tender, Lot, Classifier, Bid, Irregularity, Flag
 from flags.serializer import TenderSerializer, LotSerializer, EntitySerializer, ClassifierSerializer, BidSerializer, \
@@ -42,3 +43,10 @@ class IrregularityViewSet(viewsets.ModelViewSet):
 class FlagViewSet(viewsets.ModelViewSet):
     serializer_class = FlagSerializer
     queryset = Flag.objects.all()
+
+    filterset_fields = {
+        'irregularity': ['exact'],
+        'tender': ['exact'],
+        'tender__procuring_entity': ['exact'],
+        'tender__procuring_entity__name': ['icontains']
+    }
