@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from flags.models import Tender, Lot, Entity, Bid, Irregularity, Flag, Classifier
+from rest_framework_bulk import BulkListSerializer, BulkSerializerMixin,\
+    ListBulkCreateUpdateDestroyAPIView
 
 
 class TenderSerializer(serializers.ModelSerializer):

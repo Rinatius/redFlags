@@ -17,32 +17,33 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-import flags.views as turnip_app
+import flags.views as app
 
 api_v1 = r'api/v1/'
 
 router = DefaultRouter()
 
+
 router.register(api_v1 + r'tenders',
-                turnip_app.TenderViewSet,
+                app.TenderViewSet,
                 basename='tender')
 router.register(api_v1 + r'lots',
-                turnip_app.LotViewSet,
+                app.LotViewSet,
                 basename='lot')
 router.register(api_v1 + r'entities',
-                turnip_app.EntityViewSet,
+                app.EntityViewSet,
                 basename='entity')
 router.register(api_v1 + r'bids',
-                turnip_app.BidViewSet,
+                app.BidViewSet,
                 basename='bid')
 router.register(api_v1 + r'classifiers',
-                turnip_app.ClassifierViewSet,
+                app.ClassifierViewSet,
                 basename='classifier')
 router.register(api_v1 + r'irregularities',
-                turnip_app.IrregularityViewSet,
+                app.IrregularityViewSet,
                 basename='irregularity')
 router.register(api_v1 + r'flags',
-                turnip_app.FlagViewSet,
+                app.FlagViewSet,
                 basename='flag')
 
 
