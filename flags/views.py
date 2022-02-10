@@ -6,43 +6,62 @@ from rest_framework import viewsets
 from rest_framework_bulk import BulkModelViewSet
 
 from flags.models import Entity, Tender, Lot, Classifier, Bid, Irregularity, Flag
+from flags.permissions import MainAccessPolicy
 from flags.serializer import TenderSerializer, LotSerializer, EntitySerializer, ClassifierSerializer, BidSerializer, \
     IrregularitySerializer, FlagSerializer
 
 
 class TenderViewSet(viewsets.ModelViewSet):
     serializer_class = TenderSerializer
-    queryset = Tender.objects.all()
+    permission_classes = (MainAccessPolicy,)
+
+    def get_queryset(self):
+        return MainAccessPolicy.scope_queryset(self.request, Tender.objects.all())
 
 
 class LotViewSet(viewsets.ModelViewSet):
     serializer_class = LotSerializer
-    queryset = Lot.objects.all()
+    permission_classes = (MainAccessPolicy,)
+
+    def get_queryset(self):
+        return MainAccessPolicy.scope_queryset(self.request, Lot.objects.all())
 
 
 class EntityViewSet(viewsets.ModelViewSet):
     serializer_class = EntitySerializer
-    queryset = Entity.objects.all()
+    permission_classes = (MainAccessPolicy,)
+
+    def get_queryset(self):
+        return MainAccessPolicy.scope_queryset(self.request, Entity.objects.all())
 
 
 class ClassifierViewSet(viewsets.ModelViewSet):
     serializer_class = ClassifierSerializer
-    queryset = Classifier.objects.all()
+    permission_classes = (MainAccessPolicy,)
+
+    def get_queryset(self):
+        return MainAccessPolicy.scope_queryset(self.request, Classifier.objects.all())
 
 
 class BidViewSet(viewsets.ModelViewSet):
     serializer_class = BidSerializer
-    queryset = Bid.objects.all()
+    permission_classes = (MainAccessPolicy,)
+
+    def get_queryset(self):
+        return MainAccessPolicy.scope_queryset(self.request, Bid.objects.all())
 
 
 class IrregularityViewSet(viewsets.ModelViewSet):
     serializer_class = IrregularitySerializer
     queryset = Irregularity.objects.all()
+    permission_classes = (MainAccessPolicy,)
+
+    def get_queryset(self):
+        return MainAccessPolicy.scope_queryset(self.request, Irregularity.objects.all())
 
 
 class FlagViewSet(viewsets.ModelViewSet):
     serializer_class = FlagSerializer
-    queryset = Flag.objects.all()
 
     filterset_fields = {
         'irregularity': ['exact'],
@@ -50,3 +69,8 @@ class FlagViewSet(viewsets.ModelViewSet):
         'tender__procuring_entity': ['exact'],
         'tender__procuring_entity__name': ['icontains']
     }
+
+    permission_classes = (MainAccessPolicy,)
+
+    def get_queryset(self):
+        return MainAccessPolicy.scope_queryset(self.request, Flag.objects.all())
