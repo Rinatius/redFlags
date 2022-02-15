@@ -59,7 +59,7 @@ class RedFlagsTest(APITestCase):
     def test_list_request_not_auth(self):
         client = APIClient()
         response = self.get_objects("classifier-list", client=client)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_create_request_super_user(self):
         data = {
