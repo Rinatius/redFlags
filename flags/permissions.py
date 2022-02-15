@@ -10,7 +10,7 @@ class StaffOnlyCreateAccessPolicy(AccessPolicy):
     statements = [
         {
             "action": ["list", "retrieve"],
-            "principal": "authenticated",
+            "principal": "*",
             "effect": "allow",
         },
         {
@@ -30,7 +30,8 @@ class StaffOnlyCreateAccessPolicy(AccessPolicy):
         {
             "action": ["destroy"],
             "principal": "authenticated",
-            "effect": "can_create"
+            "effect": "allow",
+            "condition": "can_create"
         }
     ]
 
