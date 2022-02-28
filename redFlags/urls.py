@@ -45,6 +45,9 @@ router.register(api_v1 + r'irregularities',
 router.register(api_v1 + r'flags',
                 app.FlagViewSet,
                 basename='flag')
+router.register(api_v1 + r'flag_data',
+                app.FlagDataViewSet,
+                basename='flag_data')
 
 
 urlpatterns = [

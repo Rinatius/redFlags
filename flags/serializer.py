@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from flags.models import Tender, Lot, Entity, Bid, Irregularity, Flag, Classifier
 from rest_framework_bulk import BulkListSerializer, BulkSerializerMixin,\
     ListBulkCreateUpdateDestroyAPIView
@@ -52,3 +51,8 @@ class ClassifierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Classifier
         fields = '__all__'
+
+class FlagDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Flag
+        fields = ['data']

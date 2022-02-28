@@ -14,8 +14,12 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Pipenv (redFlags)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.7 (redFlags-mYpv8eHA)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="Jinja_tutorial" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="module" module-name="coolsite" />
+    <orderEntry type="library" name="scripts" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

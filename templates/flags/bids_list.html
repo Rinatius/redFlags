@@ -1,0 +1,33 @@
+{% extends "flags/base.html" %}
+{% load flags_tags %}
+
+{% block content %}
+<div class="table-responsive" style="overflow:scroll">
+<table class="table table-hover table-bordered table-condensed">
+<thead>
+    <tr>
+        <th>id</th>
+        <th>price</th>
+        <th>status</th>
+        <th>time</th>
+        <th>won</th>
+        <th>lot</th>
+        <th>entity</th>
+    </tr>
+</thead>
+<tbody>
+    {% for res in data.results %}
+        <tr>
+            <td>{{ res.id }}</td>
+            <td>{{ res.price }}</td>
+            <td>{{ res.status }}</td>
+            <td>{{ res.time }}</td>
+            <td>{{ res.won }}</td>
+            <td>{{ res.lot }}</td>
+            <td>{{ res.entity }}</td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}

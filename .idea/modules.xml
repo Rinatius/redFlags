@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Jinja_tutorial/.idea/Jinja_tutorial.iml" filepath="$PROJECT_DIR$/../Jinja_tutorial/.idea/Jinja_tutorial.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/lesson-24-coolsite/coolsite/.idea/coolsite.iml" filepath="$USER_HOME$/Desktop/lesson-24-coolsite/coolsite/.idea/coolsite.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/redFlags.iml" filepath="$PROJECT_DIR$/.idea/redFlags.iml" />
     </modules>
   </component>

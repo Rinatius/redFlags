@@ -10,7 +10,7 @@ class StaffOnlyCreateAccessPolicy(AccessPolicy):
     statements = [
         {
             "action": ["list", "retrieve"],
-            "principal": "authenticated",
+            "principal": "anonymous",
             "effect": "allow",
         },
         {

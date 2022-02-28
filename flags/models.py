@@ -82,3 +82,6 @@ class Flag(IdModel, NameModel):
 
     def __str__(self):
         return self.name
+
+# class FlagData(IdModel):
+#     data =
