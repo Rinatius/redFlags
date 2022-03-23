@@ -8,6 +8,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from rest_framework_bulk import BulkModelViewSet
+from rest_framework.views import APIView
+from rest_framework import generics
 
 from flags.models import Entity, Tender, Lot, Classifier, Bid, Irregularity, Flag
 from flags.permissions import MainAccessPolicy
@@ -21,34 +23,39 @@ class CustomPagination(PageNumberPagination):
     max_page_size = 100
 
 
-class TenderViewSet(viewsets.ModelViewSet):
+class MainPageView(viewsets.ModelViewSet):
     serializer_class = TenderSerializer
     permission_classes = (MainAccessPolicy,)
-    renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
+    renderer_classes = [TemplateHTMLRenderer]
     pagination_class = CustomPagination
 
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Tender.objects.all())
 
     def list(self, request, *args, **kwargs):
-        response = super(TenderViewSet, self).list(request, *args, **kwargs)
-        return Response({'data': response.data, 'request': request, 'title': self.basename.capitalize()},
-                        template_name='flags/tenders_list.html')
+        response = super(MainPageView, self).list(request, *args, **kwargs)
+        return Response({
+            'data': response.data,
+            'title': self.basename.capitalize()
+        }, template_name='flags/main_front.html')
+
+
+class TenderViewSet(viewsets.ModelViewSet):
+    serializer_class = TenderSerializer
+    permission_classes = (MainAccessPolicy,)
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        return MainAccessPolicy.scope_queryset(self.request, Tender.objects.all())
 
 
 class LotViewSet(viewsets.ModelViewSet):
     serializer_class = LotSerializer
     permission_classes = (MainAccessPolicy,)
     pagination_class = CustomPagination
-    renderer_classes = [TemplateHTMLRenderer, BrowsableAPIRenderer]
 
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Lot.objects.all())
-
-    def list(self, request, *args, **kwargs):
-        response = super(LotViewSet, self).list(request, *args, **kwargs)
-        return Response({'data': response.data, 'request': request, 'title': self.basename.capitalize()},
-                        template_name='flags/lots_list.html')
 
 
 class EntityViewSet(viewsets.ModelViewSet):
@@ -58,18 +65,10 @@ class EntityViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Entity.objects.all())
 
-    renderer_classes = [TemplateHTMLRenderer, BrowsableAPIRenderer]
-
-    def list(self, request, *args, **kwargs):
-        response = super(EntityViewSet, self).list(request, *args, **kwargs)
-        return Response({'data': response.data, 'request': request, 'title': self.basename.capitalize()},
-                        template_name='flags/entities_list.html')
-
 
 class ClassifierViewSet(viewsets.ModelViewSet):
     serializer_class = ClassifierSerializer
     permission_classes = (MainAccessPolicy,)
-    # renderer_classes = [TemplateHTMLRenderer, BrowsableAPIRenderer]
 
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Classifier.objects.all())
@@ -78,35 +77,22 @@ class ClassifierViewSet(viewsets.ModelViewSet):
 class BidViewSet(viewsets.ModelViewSet):
     serializer_class = BidSerializer
     permission_classes = (MainAccessPolicy,)
-    renderer_classes = [TemplateHTMLRenderer, BrowsableAPIRenderer]
 
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Bid.objects.all())
-
-    def list(self, request, *args, **kwargs):
-        response = super(BidViewSet, self).list(request, *args, **kwargs)
-        return Response({'data': response.data, 'request': request, 'title': self.basename.capitalize()},
-                        template_name='flags/bids_list.html')
 
 
 class IrregularityViewSet(viewsets.ModelViewSet):
     serializer_class = IrregularitySerializer
     queryset = Irregularity.objects.all()
     permission_classes = (MainAccessPolicy,)
-    renderer_classes = [TemplateHTMLRenderer, BrowsableAPIRenderer]
 
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Irregularity.objects.all())
 
-    def list(self, request, *args, **kwargs):
-        response = super(IrregularityViewSet, self).list(request, *args, **kwargs)
-        return Response({'data': response.data, 'request': request, 'title': self.basename.capitalize()},
-                        template_name='flags/irregularities_list.html')
-
 
 class FlagViewSet(viewsets.ModelViewSet):
     serializer_class = FlagSerializer
-    renderer_classes = [TemplateHTMLRenderer, BrowsableAPIRenderer]
 
     filterset_fields = {
         'irregularity': ['exact'],
@@ -120,11 +106,6 @@ class FlagViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Flag.objects.all())
 
-    def list(self, request, *args, **kwargs):
-        response = super(FlagViewSet, self).list(request, *args, **kwargs)
-        return Response({'data': response.data, 'request': request, 'title': self.basename.capitalize()},
-                        template_name='flags/flags_list.html')
-
 
 class FlagDataViewSet(viewsets.ModelViewSet):
     serializer_class = FlagDataSerializer
@@ -133,10 +114,3 @@ class FlagDataViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Flag.objects.all())
-
-    # renderer_classes = [TemplateHTMLRenderer]
-    #
-    # def list(self, request, *args, **kwargs):
-    #     response = super(FlagDataViewSet, self).list(request, *args, **kwargs)
-    #     return Response({'data': response.data, 'request': request, 'title': self.basename.capitalize()},
-    #                     template_name='flags/flag_data.html')
