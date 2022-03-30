@@ -16,6 +16,9 @@ from flags.permissions import MainAccessPolicy
 from flags.serializer import TenderSerializer, LotSerializer, EntitySerializer, ClassifierSerializer, BidSerializer, \
     IrregularitySerializer, FlagSerializer, FlagDataSerializer
 
+from django_filters import rest_framework as filters
+from django import forms
+
 
 class CustomPagination(PageNumberPagination):
     page_size = 10
@@ -23,11 +26,38 @@ class CustomPagination(PageNumberPagination):
     max_page_size = 100
 
 
+class CustomFilter(filters.FilterSet):
+    procuring_entity = filters.CharFilter(
+        field_name='procuring_entity__name',
+        lookup_expr='icontains',
+        widget=forms.TextInput(attrs={
+            'class': 'form-label',
+            # 'type': 'text',
+            'list': 'entitiesList',
+            'placeholder': 'Введите название закупающей организации',
+        }), label='',
+    )
+    name = filters.ModelChoiceFilter(
+        field_name='name',
+        queryset=Irregularity.objects.all(),
+        label=''
+    )
+
+    class Meta:
+        model = Tender
+        fields = [
+            'procuring_entity',
+            'name',
+        ]
+
+
 class MainPageView(viewsets.ModelViewSet):
     serializer_class = TenderSerializer
     permission_classes = (MainAccessPolicy,)
     renderer_classes = [TemplateHTMLRenderer]
     pagination_class = CustomPagination
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = CustomFilter
 
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Tender.objects.all())
@@ -36,7 +66,8 @@ class MainPageView(viewsets.ModelViewSet):
         response = super(MainPageView, self).list(request, *args, **kwargs)
         return Response({
             'data': response.data,
-            'title': self.basename.capitalize()
+            'title': self.basename.capitalize(),
+            'filter': CustomFilter,
         }, template_name='flags/main_front.html')
 
 

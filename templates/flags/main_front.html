@@ -1,31 +1,87 @@
-{% extends "flags/base.html" %}
 {% load flags_tags %}
+<!DOCTYPE html>
+<html lang="ru">
 
-{% block content %}
-<!--<div class="container">-->
-<!--  <div class="col-md-12">-->
-<!--    <div class="panel panel-default">-->
-      <div class="panel-heading">Flags</div>
-<!--        <div class="panel-body">-->
-          <table class="table">
-            <thead>
+<head>
+    <meta charset="UTF-8">
+    <title>Red Flags</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!--    <link rel="stylesheet" href="flags/static/flags/flags.css" />-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+      .tableFixHead {
+        overflow-y: auto;
+<!--        height: 80vh;-->
+       }
+      .tableFixHead thead th {
+        position: sticky;
+        top: 0;
+        }
+      th {
+        background:#24262A;
+      }
+    </style>
+</head>
+
+
+<body>
+
+<!--<div class="container shadow align-items-center">-->
+<!--<div class="bg-color"-->
+<!--     style="background: rgb(144, 174, 233);-->
+<!--            height: 100vh">-->
+<div class="container-fluid">
+<!--    <div class="col mx-auto rounded shadow-lg bg-light">-->
+      <nav>
+        <ul class="pagination">
+        {% if data.previous %}
+        <li class="page-item"><a class="page-link" href="{{ data.previous }}">Previous</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="{{ data.previous }}">Previous</a></li>
+        {% endif %}
+        {% if data.next %}
+        <li class="page-item"><a class="page-link" href="{{ data.next }}">Next</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="{{ data.next }}">Next</a></li>
+        {% endif %}
+        </ul>
+      </nav>
+  <form method="get">
+    {{ filter.form }}
+    <input type="submit" class="btn btn-primary" value="Применить фильтр">
+    {% get_all_entities as entities %}
+    <datalist id="entitiesList">
+      {% for entity in entities %}
+      <option value="{{ entity }}">{{ entity }}</option>
+      {% endfor %}
+    </datalist>
+  </form>
+        <div class="table table-hover table-responsive tableFixHead rounded">
+          <table class="table table-bordered table-sm">
+            <thead class="table-dark ">
               <tr>
                 <th>procuring entity</th>
                 <th>tender</th>
-                <th>method/status</th>
+                <th>status</th>
+                <th>method</th>
+                <th>price</th>
                 <th>dates</th>
                 <th>flags</th>
               </tr>
             </thead>
             <tbody>
               {% for tender in data.results %}
-              {% get_entity tender.procuring_entity as entity %}
               {% get_flags tender.id as flags %}
               {% flags_num flags as flag_len %}
-                <tr data-toggle="collapse" data-target="#accordion_id_{{ tender.id }}" class="accordion-toggle table-info">
+              {% get_entity tender.procuring_entity as entity %}
+              {% split_description tender.description as description_list %}
+                <tr data-toggle="collapse" data-target="#accordion_id_{{ tender.id }}" class="accordion-toggle">
                   <td>{{ entity }}</td>
                   <td><a href="{{ tender.url }}">{{ tender.name }}</a></td>
-                  <td>{{ tender.description }}</td>
+                  <td>{{ description_list.0 }}</td>
+                  <td>{{ description_list.1 }}</td>
+                  <td>{{ description_list.2 }}</td>
                   <td>{{ tender.start_time }} - {{ tender.end_time }}</td>
                   <td>{{ flag_len }}</td>
                 </tr>
@@ -34,7 +90,7 @@
                     <div class="accordion-body collapse" id="accordion_id_{{ tender.id }}">
 <!--                      <table class="table table-striped">-->
                       <table class="table">
-                        <thead>
+                        <thead class="table-dark">
                           <tr>
                             <th>flag</th>
                             <th>lot</th>
@@ -50,7 +106,10 @@
                               <td>{{ flag.lot }}, {{ flag.lot.description }}</td>
                               <td>{{ flag.lot.price }}</td>
                               <td></td>
-                              <td>{{ flag.data }}</td>
+                              <td><button type="button" class="btn btn-primary">
+                                details
+                              </button></td>
+<!--                              <td>{{ flag.data }}</td>-->
                             </tr>
                           {% endfor %}
                         </tbody>
@@ -61,9 +120,25 @@
               {% endfor %}
             </tbody>
           </table>
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
+        </div>
+      <nav>
+        <ul class="pagination">
+        {% if data.previous %}
+        <li class="page-item"><a class="page-link" href="{{ data.previous }}">Previous</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="{{ data.previous }}">Previous</a></li>
+        {% endif %}
+        {% if data.next %}
+        <li class="page-item"><a class="page-link" href="{{ data.next }}">Next</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="{{ data.next }}">Next</a></li>
+        {% endif %}
+        </ul>
+      </nav>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
 
-{% endblock %}
+</html>

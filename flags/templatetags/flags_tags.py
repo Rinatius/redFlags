@@ -23,11 +23,6 @@ def get_lot(lot_id):
     return Lot.objects.get(pk=lot_id)
 
 
-# @register.simple_tag()
-# def get_tender(tender_id):
-#     return Tender.objects.get(pk=tender_id)
-
-
 @register.simple_tag()
 def get_entity(entity_id):
     return Entity.objects.get(pk=entity_id)
@@ -40,9 +35,21 @@ def get_flags(tender_id):
 
 @register.simple_tag()
 def flags_num(flag_query):
-    return len(set([x.name for x in flag_query]))
+    flag_len = len(set([x.name for x in flag_query]))
+    return flag_len
 
 
 @register.simple_tag()
 def get_all_tenders():
     return Tender.object.all()
+
+
+@register.simple_tag()
+def get_all_entities():
+    return Entity.objects.all()
+
+
+@register.simple_tag()
+def split_description(description):
+    return description.split(' - ')
+
