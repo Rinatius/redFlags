@@ -31,23 +31,65 @@ class CustomFilter(filters.FilterSet):
         field_name='procuring_entity__name',
         lookup_expr='icontains',
         widget=forms.TextInput(attrs={
-            'class': 'form-label',
-            # 'type': 'text',
             'list': 'entitiesList',
-            'placeholder': 'Введите название закупающей организации',
+            'placeholder': 'Название закупающей организации',
         }), label='',
     )
-    name = filters.ModelChoiceFilter(
-        field_name='name',
-        queryset=Irregularity.objects.all(),
-        label=''
+    # name = filters.ModelChoiceFilter(
+    #     field_name='name',
+    #     queryset=Irregularity.objects.all(),
+    #     label=''
+    # )
+
+    start_start_date = filters.DateTimeFilter(
+        field_name='start_time',
+        lookup_expr='gte',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'data-provide': 'datepicker',
+            'style': 'width: 300px;',
+            'data-date-format': 'yyyy-mm-ddT09:12:06.894000Z',
+        })
+    )
+    start_end_date = filters.DateTimeFilter(
+        field_name='start_time',
+        lookup_expr='lte',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'data-provide': 'datepicker',
+            'style': 'width: 300px;',
+            'data-date-format': 'yyyy-mm-ddT00:00:00.000000Z',
+        })
+    )
+
+    end_start_date = filters.DateTimeFilter(
+        field_name='end_time',
+        lookup_expr='gte',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'data-provide': 'datepicker',
+            'style': 'width: 300px;',
+            'data-date-format': 'yyyy-mm-ddT00:00:00.000000Z',
+        })
+    )
+    end_end_date = filters.DateTimeFilter(
+        field_name='end_time',
+        lookup_expr='lte',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'data-provide': 'datepicker',
+            'style': 'width: 300px;',
+            'data-date-format': 'yyyy-mm-ddT00:00:00.000000Z',
+        })
     )
 
     class Meta:
         model = Tender
         fields = [
+            'start_start_date',
+            'start_end_date',
             'procuring_entity',
-            'name',
+            # 'name',
         ]
 
 
@@ -55,18 +97,20 @@ class MainPageView(viewsets.ModelViewSet):
     serializer_class = TenderSerializer
     permission_classes = (MainAccessPolicy,)
     renderer_classes = [TemplateHTMLRenderer]
-    pagination_class = CustomPagination
+    # pagination_class = CustomPagination
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = CustomFilter
 
     def get_queryset(self):
-        return MainAccessPolicy.scope_queryset(self.request, Tender.objects.all())
+        flags_id = Flag.objects.all().values_list('tender_id')
+        tenders = Tender.objects.filter(pk__in=flags_id)
+
+        return MainAccessPolicy.scope_queryset(self.request, tenders.order_by('-start_time'))
 
     def list(self, request, *args, **kwargs):
         response = super(MainPageView, self).list(request, *args, **kwargs)
         return Response({
             'data': response.data,
-            'title': self.basename.capitalize(),
             'filter': CustomFilter,
         }, template_name='flags/main_front.html')
 
