@@ -28,12 +28,13 @@ class TenderFilter(django_filters.FilterSet):
     procuring_entity = django_filters.CharFilter(
         field_name='procuring_entity__name',
         lookup_expr='icontains',
+        label='',
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'list': 'entitiesList',
-            'placeholder': 'Название закупающей организации',
+            'placeholder': 'Name of procuring entity',
             'id': 'inputProcuringEntity',
-        }), label='',
+        }),
     )
 
     start_date_from = django_filters.DateFilter(
@@ -88,8 +89,19 @@ class TenderFilter(django_filters.FilterSet):
         })
     )
 
+    flag = django_filters.CharFilter(
+        field_name='flag__name',
+        distinct=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'list': 'flagsList',
+            'id': 'inputFlagType',
+        }),
+    )
+
     class Meta:
         model = Tender
         fields = [
             'procuring_entity',
+            # 'flag',
         ]

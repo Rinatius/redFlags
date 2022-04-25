@@ -35,16 +35,32 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="inputProcuringEntity">Закупающая организация</label>
-        {{ filter.form.procuring_entity }}
-        {% get_all_entities as entities %}
-        <datalist id="entitiesList">
-          {% for entity in entities %}
-          <option value="{{ entity }}">
-          {% endfor %}
-        </datalist>
+      <div class="form-row">
+        <div class="col">
+          <div class="form-group">
+            <label for="inputProcuringEntity">Procuring entity</label>
+            {{ filter.form.procuring_entity }}
+            {% get_all_entities as entities %}
+            <datalist id="entitiesList">
+              {% for entity in entities %}
+              <option value="{{ entity }}">
+              {% endfor %}
+            </datalist>
+          </div>
         </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="inputFlagType">Flag type</label>
+            {{ filter.form.flag }}
+            {% get_flag_types as flag_types %}
+            <datalist id="flagsList">
+              {% for flag_type in flag_types %}
+              <option value="{{ flag_type.name }}">{{ flag_type.id }}</option>
+              {% endfor %}
+            </datalist>
+          </div>
+        </div>
+      </div>
 
       <small class="d-block text-right mt-3">
         <input type="submit" class="btn btn-primary btn-sm" value="Искать">
