@@ -1,0 +1,29 @@
+{% extends "flags/base.html" %}
+{% load flags_tags %}
+
+{% block content %}
+<body>
+<main class="container">
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <div class="table rounded">
+    <table class="table table-bordered table-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>procuring entity</th>
+          <th>tender</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for key, value in object.data.items %}
+        <tr>
+          <td>{{ key }}</td>
+          <td>{{ value }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</main>
+</body>
+{% endblock %}
