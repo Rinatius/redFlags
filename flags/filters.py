@@ -99,6 +99,15 @@ class TenderFilter(django_filters.FilterSet):
         }),
     )
 
+    name = django_filters.CharFilter(
+        field_name='name',
+        lookup_expr='icontains',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'id': 'inputTenderName',
+        }),
+    )
+
     class Meta:
         model = Tender
         fields = [
