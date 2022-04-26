@@ -51,7 +51,7 @@
         <div class="col">
           <div class="form-group">
             <label for="inputFlagType">Flag type</label>
-            {{ filter.form.flag }}
+            {{ filter.form.flag_name }}
             {% get_flag_types as flag_types %}
             <datalist id="flagsList">
               {% for flag_type in flag_types %}
@@ -179,7 +179,8 @@
                           <th>flag</th>
                           <th>lot</th>
                           <th>lot's price</th>
-                          <th>flag's date</th>
+                          <th>created at</th>
+                          <th>updated at</th>
                           <th>details</th>
                         </tr>
                       </thead>
@@ -189,7 +190,8 @@
                             <td>{{ flag_item.irregularity }}</td>
                             <td>{{ flag_item.lot }}, {{ flag_item.lot.description }}</td>
                             <td>{{ flag_item.lot.price }}</td>
-                            <td></td>
+                            <td>{{ flag_item.created_at }}</td>
+                            <td>{{ flag_item.updated_at }}</td>
                             <td><a href="/details/{{ flag_item.pk }}">
                               <button type="button" class="btn btn-sm btn-outline-primary">
                               👁
