@@ -89,7 +89,7 @@ class TenderFilter(django_filters.FilterSet):
         })
     )
 
-    flag = django_filters.CharFilter(
+    flag_name = django_filters.CharFilter(
         field_name='flag__name',
         distinct=True,
         widget=forms.TextInput(attrs={
@@ -98,6 +98,16 @@ class TenderFilter(django_filters.FilterSet):
             'id': 'inputFlagType',
         }),
     )
+
+    # flag_created_at = django_filters.DateFilter(
+    #     field_name='flag__created_at',
+    #     distinct=True,
+    #     widget=forms.TextInput(attrs={
+    #         'class': 'form-control',
+    #         'data-provide': 'datepicker',
+    #         'data-date-format': 'mm/dd/yyyy',
+    #     })
+    # )
 
     name = django_filters.CharFilter(
         field_name='name',
