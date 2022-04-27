@@ -10,11 +10,6 @@ from flags.serializer import TenderSerializer, LotSerializer, EntitySerializer, 
 from .filters import TenderFilter
 
 
-class TestClass(viewsets.ModelViewSet):
-    # test class
-    pass
-
-
 class CustomPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'

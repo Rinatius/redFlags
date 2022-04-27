@@ -18,6 +18,7 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 import flags.views as app
+from flags import ajax_datatable_views
 
 api_v1 = r'api/v1/'
 
@@ -53,5 +54,6 @@ router.register(api_v1 + r'flag_data',
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('main/', app.MainPageView.as_view(), name='home'),
-    path('details/<str:pk>/', app.FlagDetailsView.as_view(), name='flag-details')
+    path('details/<str:pk>/', app.FlagDetailsView.as_view(), name='flag-details'),
+    path('datatables/', ajax_datatable_views.RedFlagsAjaxDatatableView.as_view(), name='ajax_datatable_redflags'),
 ] + router.urls

@@ -1,15 +1,8 @@
 from django import template
-from flags.views import *
-from redFlags.urls import router
 from flags.models import *
 from datetime import datetime
 
 register = template.Library()
-
-
-@register.simple_tag()
-def get_urls():
-    return router.get_routes(TenderViewSet)
 
 
 @register.simple_tag()
