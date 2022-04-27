@@ -62,6 +62,9 @@ class Tender(IdModel, NameModel, URLModel, BaseDatesModel):
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
 
+    class Meta:
+        ordering = ['-start_time']
+
     def __str__(self):
         return self.name
 
