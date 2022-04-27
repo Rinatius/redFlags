@@ -33,7 +33,6 @@ class TenderFilter(django_filters.FilterSet):
             'class': 'form-control',
             'list': 'entitiesList',
             'placeholder': 'Name of procuring entity',
-            'id': 'inputProcuringEntity',
         }),
     )
 
@@ -44,7 +43,6 @@ class TenderFilter(django_filters.FilterSet):
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'data-provide': 'datepicker',
-            # 'style': 'width: 300px;',
             'data-date-format': 'mm/dd/yyyy',
             'placeholder': 'From',
         })
@@ -57,7 +55,6 @@ class TenderFilter(django_filters.FilterSet):
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'data-provide': 'datepicker',
-            # 'style': 'width: 300px;',
             'data-date-format': 'mm/dd/yyyy',
             'placeholder': 'To',
         })
@@ -70,7 +67,6 @@ class TenderFilter(django_filters.FilterSet):
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'data-provide': 'datepicker',
-            # 'style': 'width: 300px;',
             'data-date-format': 'mm/dd/yyyy',
             'placeholder': 'From',
         })
@@ -83,7 +79,6 @@ class TenderFilter(django_filters.FilterSet):
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'data-provide': 'datepicker',
-            # 'style': 'width: 300px;',
             'data-date-format': 'mm/dd/yyyy',
             'placeholder': 'To',
         })
@@ -95,32 +90,41 @@ class TenderFilter(django_filters.FilterSet):
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'list': 'flagsList',
-            'id': 'inputFlagType',
         }),
     )
 
-    # flag_created_at = django_filters.DateFilter(
-    #     field_name='flag__created_at',
-    #     distinct=True,
-    #     widget=forms.TextInput(attrs={
-    #         'class': 'form-control',
-    #         'data-provide': 'datepicker',
-    #         'data-date-format': 'mm/dd/yyyy',
-    #     })
-    # )
+    flag_created_at_from = django_filters.DateFilter(
+        field_name='flag__created_at',
+        distinct=True,
+        lookup_expr='gte',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'data-provide': 'datepicker',
+            'data-date-format': 'mm/dd/yyyy',
+            'placeholder': 'From'
+        })
+    )
+
+    flag_created_at_to = django_filters.DateFilter(
+        field_name='flag__created_at',
+        distinct=True,
+        lookup_expr='lte',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'data-provide': 'datepicker',
+            'data-date-format': 'mm/dd/yyyy',
+            'placeholder': 'To'
+        })
+    )
 
     name = django_filters.CharFilter(
         field_name='name',
         lookup_expr='icontains',
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'id': 'inputTenderName',
         }),
     )
 
     class Meta:
         model = Tender
-        fields = [
-            'procuring_entity',
-            # 'flag',
-        ]
+        fields = '__all__'

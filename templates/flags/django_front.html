@@ -8,71 +8,89 @@
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
     <h6 class="border-bottom border-gray pb-2 mb-0">Filtering</h6>
+<!--    <div class="container">-->
+      <form method="get">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="col">
+          <h5>Tender's start date</h5>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {{ filter.form.start_date_from }}
+              </div>
+              <div class="form-group col-md-6">
+                {{ filter.form.start_date_to }}
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <h5>Tender's end date</h5>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {{ filter.form.end_date_from }}
+              </div>
+              <div class="form-group col-md-6">
+                {{ filter.form.end_date_to }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <h5>Procuring entity</h5>
+              {{ filter.form.procuring_entity }}
+              {% get_all_entities as entities %}
+              <datalist id="entitiesList">
+                {% for entity in entities %}
+                <option value="{{ entity }}">
+                {% endfor %}
+              </datalist>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <h5>Flag type</h5>
+              {{ filter.form.flag_name }}
+              {% get_flag_types as flag_types %}
+              <datalist id="flagsList">
+                {% for flag_type in flag_types %}
+                <option value="{{ flag_type.name }}">{{ flag_type.id }}</option>
+                {% endfor %}
+              </datalist>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <h5>Search by tender's name</h5>
+              {{ filter.form.name }}
+            </div>
+          </div>
+          <div class="col">
+            <h5>Flag's creation date</h5>
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  {{ filter.form.flag_created_at_from }}
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  {{ filter.form.flag_created_at_to }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <form method="get">
-      {% csrf_token %}
-      <div class="form-row">
-        <div class="col">
-        <h4>Tender's start date</h4>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              {{ filter.form.start_date_from }}
-            </div>
-            <div class="form-group col-md-6">
-              {{ filter.form.start_date_to }}
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <h4>Tender's end date</h4>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              {{ filter.form.end_date_from }}
-            </div>
-            <div class="form-group col-md-6">
-              {{ filter.form.end_date_to }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col">
-          <div class="form-group">
-            <label for="inputProcuringEntity">Procuring entity</label>
-            {{ filter.form.procuring_entity }}
-            {% get_all_entities as entities %}
-            <datalist id="entitiesList">
-              {% for entity in entities %}
-              <option value="{{ entity }}">
-              {% endfor %}
-            </datalist>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label for="inputFlagType">Flag type</label>
-            {{ filter.form.flag_name }}
-            {% get_flag_types as flag_types %}
-            <datalist id="flagsList">
-              {% for flag_type in flag_types %}
-              <option value="{{ flag_type.name }}">{{ flag_type.id }}</option>
-              {% endfor %}
-            </datalist>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="inputTenderName">Search by tender's name</label>
-        {{ filter.form.name }}
-      </div>
-
-      <small class="d-block text-right mt-3">
-        <input type="submit" class="btn btn-primary btn-sm" value="Искать">
-      </small>
-    </form>
+        <small class="d-block text-right mt-3">
+          <input type="submit" class="btn btn-primary btn-sm" value="Искать">
+        </small>
+      </form>
     <a href="{% url 'home' %}"><button class="btn btn-primary btn-sm">Очистить форму</button></a>
-  </div>
+    </div>
 
 <div class="my-3 p-3 bg-white rounded shadow-sm">
 
@@ -192,7 +210,7 @@
                             <td>{{ flag_item.lot.price }}</td>
                             <td>{{ flag_item.created_at }}</td>
                             <td>{{ flag_item.updated_at }}</td>
-                            <td><a href="/details/{{ flag_item.pk }}">
+                            <td><a href="/details/{{ flag_item.pk }}" target="_blank">
                               <button type="button" class="btn btn-sm btn-outline-primary">
                               👁
                               </button>
