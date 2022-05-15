@@ -1,0 +1,32 @@
+{% load flags_tags %}
+
+
+<div class="bg-white rounded shadow-sm">
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>flag</th>
+        <th>lot</th>
+        <th>lot's price</th>
+        <th>created at</th>
+        <th>updated at</th>
+        <th>details</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for flag in flags %}
+    <tr>
+      <td>{{ flag.name }}</td>
+      <td>{{ flag.lot.description }}</td>
+      <td>{{ flag.lot.price }}</td>
+      <td></td>
+      <td></td>
+      <td><a href="/details/{{ flag.pk }}" target="_blank">
+        <button type="button" class="btn btn-sm btn-outline-primary">👁</button>
+      </a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+</div>

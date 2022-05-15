@@ -44,6 +44,9 @@ class Tender(IdModel, NameModel, URLModel):
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name
 
@@ -54,6 +57,9 @@ class Lot(IdModel, NameModel):
                                    on_delete=models.CASCADE)
     price = models.FloatField()
     bidders = models.ManyToManyField(Entity, through="Bid")
+
+    class Meta:
+        ordering = ['tender__name']
 
     def __str__(self):
         return self.name
@@ -78,10 +84,13 @@ class Flag(IdModel, NameModel):
     irregularity = models.ForeignKey(
         Irregularity,
         on_delete=models.CASCADE,
-        related_name='flags',
-        related_query_name='flags_test'
     )
-    tender = models.ForeignKey(Tender, on_delete=models.CASCADE, null=True)
+    tender = models.ForeignKey(
+        Tender,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='flags',
+    )
     lot = models.ForeignKey(Lot, on_delete=models.CASCADE, null=True)
     data = models.JSONField(null=True)
 

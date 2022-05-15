@@ -55,5 +55,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('main/', app.MainPageView.as_view(), name='home'),
     path('details/<str:pk>/', app.FlagDetailsView.as_view(), name='flag-details'),
-    path('datatables/', ajax_datatable_views.RedFlagsAjaxDatatableView.as_view(), name='ajax_datatable_redflags'),
+    path('datatables/', app.index),
+    path('datatables/redflags/', ajax_datatable_views.RedFlagsAjaxDatatableView.as_view(), name='ajax_datatable_redflags'),
 ] + router.urls

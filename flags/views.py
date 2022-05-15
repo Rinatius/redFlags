@@ -8,6 +8,11 @@ from flags.serializer import TenderSerializer, LotSerializer, EntitySerializer, 
     IrregularitySerializer, FlagSerializer, FlagDataSerializer
 
 from .filters import TenderFilter
+from django.shortcuts import render
+
+
+def index(request):
+    return render(request, 'flags/datatables.html', {})
 
 
 class CustomPagination(PageNumberPagination):
@@ -38,28 +43,6 @@ class MainPageView(ListView):
         filter1 = TenderFilter(self.request.GET, queryset)
         context["filter"] = filter1
         return context
-
-# class MainPageView(viewsets.ModelViewSet):
-#     serializer_class = TenderSerializer
-#     permission_classes = (MainAccessPolicy,)
-#     renderer_classes = [TemplateHTMLRenderer]
-#     # pagination_class = CustomPagination
-#     filter_backends = (filters.DjangoFilterBackend,)
-#     filterset_class = CustomFilter
-#
-#     def get_queryset(self):
-#         flags_id = Flag.objects.all().values_list('tender_id')
-#         tenders = Tender.objects.filter(pk__in=flags_id)
-#
-#         return MainAccessPolicy.scope_queryset(self.request, tenders.order_by('-start_time'))
-#
-#     def list(self, request, *args, **kwargs):
-#         response = super(MainPageView, self).list(request, *args, **kwargs)
-#         return Response({
-#             'data': response.data,
-#             'filter': CustomFilter,
-#         }, template_name='flags/main_front.html')
-
 
 class TenderViewSet(viewsets.ModelViewSet):
     serializer_class = TenderSerializer

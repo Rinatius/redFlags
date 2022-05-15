@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,19 +7,27 @@
 
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"/>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.11.5/date-1.1.2/fh-3.2.2/sb-1.3.2/sp-2.0.0/datatables.min.css"/>
-  <link href="{% static 'static/flags/css/style.css' %}" rel="stylesheet" />
+  <link href="{% static 'flags/css/style.css' %}" rel="stylesheet" />
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.11.5/date-1.1.2/fh-3.2.2/sb-1.3.2/sp-2.0.0/datatables.min.js"></script>
-  <script type="text/javascript" src="{% static 'static/flags/js/utils.js' %}"></script>
+  <script type="text/javascript" src="{% static 'flags/js/utils.js' %}"></script>
 
 </head>
-<body>
+<body
+  background="https://www.toptal.com/designers/subtlepatterns/uploads/double-bubble-outline.png"
+  style="background-attachment:fixed"
+>
 
-<div class="table-responsive">
+<div class="container">
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+  <div class="table-responsive">
     <table id="datatable_redflags" width="100%" class="table table-striped table-bordered dt-responsive compact nowrap">
     </table>
+  </div>
+  </div>
 </div>
+
 
 <script language="javascript">
 
