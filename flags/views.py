@@ -44,6 +44,7 @@ class MainPageView(ListView):
         context["filter"] = filter1
         return context
 
+
 class TenderViewSet(viewsets.ModelViewSet):
     serializer_class = TenderSerializer
     permission_classes = (MainAccessPolicy,)

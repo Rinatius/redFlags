@@ -113,3 +113,11 @@ def param_replace(context, **kwargs):
 @register.simple_tag()
 def get_flag_types():
     return Irregularity.objects.all()
+
+
+# @register.simple_tag()
+# def get_min_max_start_time(queryset):
+#     return [
+#         queryset.order_by('start_time').first().start_time,
+#         queryset.order_by('start_time').last().start_time,
+#     ]

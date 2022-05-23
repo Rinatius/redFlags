@@ -1,33 +1,65 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+{% extends "flags/base_datatables.html" %}
+{% load flags_tags %}
 
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"/>
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.11.5/date-1.1.2/fh-3.2.2/sb-1.3.2/sp-2.0.0/datatables.min.css"/>
-  <link href="{% static 'flags/css/style.css' %}" rel="stylesheet" />
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.11.5/date-1.1.2/fh-3.2.2/sb-1.3.2/sp-2.0.0/datatables.min.js"></script>
-  <script type="text/javascript" src="{% static 'flags/js/utils.js' %}"></script>
-
-</head>
-<body
-  background="https://www.toptal.com/designers/subtlepatterns/uploads/double-bubble-outline.png"
-  style="background-attachment:fixed"
->
+{% block content %}
 
 <div class="container">
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm filters">
+<!--  <h5 class="border-bottom border-gray pb-2 mb-0">Filtering</h5>-->
+    <div class="row">
+      <div class="col">
+<!--        <div class="form-floating">-->
+          <label for="flag_type">Flag type</label>
+          <input class="form-control" type="text" id="flag_type" list="flagsList">
+          {% get_flag_types as flag_types %}
+          <datalist id="flagsList">
+            {% for flag_type in flag_types %}
+            <option value="{{ flag_type.name }}">{{ flag_type.id }}</option>
+            {% endfor %}
+          </datalist>
+
+<!--        </div>-->
+      </div>
+      <div class="col">
+        <div class="row">
+          <label for="dates">Tender's start date</label>
+          <div class="col">
+            <input class="form-control" id="dates" placeholder="From">
+          </div>
+          <div class="col">
+            <input class="form-control" id="dates" placeholder="To">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="procuring_entity">Procuring Entity</label>
+        <input class="form-control" id="procuring_entity" list="entitiesList">
+        {% get_all_entities as entities %}
+        <datalist id="entitiesList">
+          {% for entity in entities %}
+          <option value="{{ entity }}">
+          {% endfor %}
+        </datalist>
+      </div>
+      <div class="col">
+<!--        <div class="form-floating">-->
+          <label for="tenders">Tender</label>
+          <input class="form-control" id="tenders">
+<!--        </div>-->
+      </div>
+    </div>
+  </div>
+
   <div class="my-3 p-3 bg-white rounded shadow-sm">
-  <div class="table-responsive">
-    <table id="datatable_redflags" width="100%" class="table table-striped table-bordered dt-responsive compact nowrap">
+  <div>
+    <table id="datatable_redflags" width="100%" class="table table-striped table-bordered compact">
     </table>
   </div>
   </div>
 </div>
-
 
 <script language="javascript">
 
@@ -35,10 +67,64 @@
         AjaxDatatableViewUtils.initialize_table(
             $('#datatable_redflags'),
             "{% url 'ajax_datatable_redflags' %}",
+            {
+            // ordering: false,
+            // paging: false,
+            scrollX: false,
+            language: {
+                    "emptyTable":     "Ой, тут пусто",
+                    "info":           "Строки с _START_ по _END_ из _TOTAL_ объектов",
+                    "infoEmpty":      "Строки с 0 по 0 из 0 объектов",
+                    "infoFiltered":   "(filtered from _MAX_ total entries)",
+                    // "infoPostFix":    "",
+                    // "thousands":      ",",
+                    "lengthMenu":     "_MENU_ Объектов на странице",
+                    "loadingRecords": "Загрузка...",
+                    "processing":     "Обработка...",
+                    "search":         "Поиск:",
+                    "zeroRecords":    "Тут ничего нет",
+                    "paginate": {
+                            "first": "Первая",
+                            "last": "Последняя",
+                            "next": "Следующая",
+                            "previous": "Предыдущая"
+                            }
+                    },
+            dom: 'B<"clear">lfrtip',
+            buttons: {
+                buttons: [
+                        'copy',
+                        'csv',
+                        'excel'
+                        ]
+                },
+            fixedHeader: true,
+
+            },
+            {
+                flag_type: function() { return $('input#flag_type').val() },
+                from_date: function() { return $('input#from_date').val() },
+                to_date: function() { return $('input#to_date').val() },
+                tenders: function() { return $('input#tenders').val() },
+                procuring_entity: function() { return $('input#procuring_entity').val() },
+            }
         );
+
+        $('#from_date').dtDateTime();
+        $('#to_date').dtDateTime();
+        $('.filters input').on('change paste', function() {
+        $('#datatable_redflags').DataTable().ajax.reload(null, false);
+<!--        alert(flags_sorting)-->
     });
+
+
+
+
+    });
+
+
+
 
 </script>
 
-</body>
-</html>
+{% endblock %}
