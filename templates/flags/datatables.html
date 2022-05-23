@@ -6,10 +6,8 @@
 <div class="container">
 
   <div class="my-3 p-3 bg-white rounded shadow-sm filters">
-<!--  <h5 class="border-bottom border-gray pb-2 mb-0">Filtering</h5>-->
     <div class="row">
       <div class="col">
-<!--        <div class="form-floating">-->
           <label for="flag_type">Flag type</label>
           <input class="form-control" type="text" id="flag_type" list="flagsList">
           {% get_flag_types as flag_types %}
@@ -18,17 +16,15 @@
             <option value="{{ flag_type.name }}">{{ flag_type.id }}</option>
             {% endfor %}
           </datalist>
-
-<!--        </div>-->
       </div>
       <div class="col">
         <div class="row">
-          <label for="dates">Tender's start date</label>
+          <label for="from_date">Tender's start date</label>
           <div class="col">
-            <input class="form-control" id="dates" placeholder="From">
+            <input class="form-control" id="from_date" placeholder="From">
           </div>
           <div class="col">
-            <input class="form-control" id="dates" placeholder="To">
+            <input class="form-control" id="to_date" placeholder="To">
           </div>
         </div>
       </div>
@@ -45,10 +41,8 @@
         </datalist>
       </div>
       <div class="col">
-<!--        <div class="form-floating">-->
           <label for="tenders">Tender</label>
           <input class="form-control" id="tenders">
-<!--        </div>-->
       </div>
     </div>
   </div>
