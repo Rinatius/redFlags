@@ -7,18 +7,11 @@ from flags.permissions import MainAccessPolicy
 from flags.serializer import TenderSerializer, LotSerializer, EntitySerializer, ClassifierSerializer, BidSerializer, \
     IrregularitySerializer, FlagSerializer, FlagDataSerializer
 
-from .filters import TenderFilter
 from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'flags/datatables.html', {})
-
-
-class CustomPagination(PageNumberPagination):
-    page_size = 10
-    page_size_query_param = 'page_size'
-    max_page_size = 100
+    return render(request, 'flags/tenders.html', {})
 
 
 class FlagDetailsView(DetailView):
@@ -26,29 +19,9 @@ class FlagDetailsView(DetailView):
     template_name = 'flags/flag_details.html'
 
 
-class MainPageView(ListView):
-    template_name = 'flags/django_front.html'
-    paginate_by = 20
-    # paginator_class = CustomPagination
-
-    def get_queryset(self):
-        flags_id = Flag.objects.all().values_list('tender_id')
-        tenders = Tender.objects.filter(pk__in=flags_id)
-        filter1 = TenderFilter(self.request.GET, tenders)
-        return filter1.qs
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        queryset = self.get_queryset()
-        filter1 = TenderFilter(self.request.GET, queryset)
-        context["filter"] = filter1
-        return context
-
-
 class TenderViewSet(viewsets.ModelViewSet):
     serializer_class = TenderSerializer
     permission_classes = (MainAccessPolicy,)
-    pagination_class = CustomPagination
 
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Tender.objects.all())
@@ -57,7 +30,6 @@ class TenderViewSet(viewsets.ModelViewSet):
 class LotViewSet(viewsets.ModelViewSet):
     serializer_class = LotSerializer
     permission_classes = (MainAccessPolicy,)
-    pagination_class = CustomPagination
 
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Lot.objects.all())
@@ -115,7 +87,6 @@ class FlagViewSet(viewsets.ModelViewSet):
 class FlagDataViewSet(viewsets.ModelViewSet):
     serializer_class = FlagDataSerializer
     permission_classes = (MainAccessPolicy,)
-    pagination_class = CustomPagination
 
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Flag.objects.all())

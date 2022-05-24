@@ -1,4 +1,4 @@
-{% extends "flags/base_datatables.html" %}
+{% extends "flags/base.html" %}
 {% load flags_tags %}
 
 {% block content %}
@@ -65,34 +65,25 @@
             // ordering: false,
             // paging: false,
             scrollX: false,
-            language: {
-                    "emptyTable":     "Ой, тут пусто",
-                    "info":           "Строки с _START_ по _END_ из _TOTAL_ объектов",
-                    "infoEmpty":      "Строки с 0 по 0 из 0 объектов",
-                    "infoFiltered":   "(filtered from _MAX_ total entries)",
-                    // "infoPostFix":    "",
-                    // "thousands":      ",",
-                    "lengthMenu":     "_MENU_ Объектов на странице",
-                    "loadingRecords": "Загрузка...",
-                    "processing":     "Обработка...",
-                    "search":         "Поиск:",
-                    "zeroRecords":    "Тут ничего нет",
-                    "paginate": {
-                            "first": "Первая",
-                            "last": "Последняя",
-                            "next": "Следующая",
-                            "previous": "Предыдущая"
-                            }
-                    },
-            dom: 'B<"clear">lfrtip',
-            buttons: {
-                buttons: [
-                        'copy',
-                        'csv',
-                        'excel'
-                        ]
-                },
-            fixedHeader: true,
+            //language: {
+            //        "emptyTable":     "Ой, тут пусто",
+            //        "info":           "Строки с _START_ по _END_ из _TOTAL_ объектов",
+            //        "infoEmpty":      "Строки с 0 по 0 из 0 объектов",
+            //        "infoFiltered":   "(filtered from _MAX_ total entries)",
+            //        // "infoPostFix":    "",
+            //        // "thousands":      ",",
+            //        "lengthMenu":     "_MENU_ Объектов на странице",
+            //        "loadingRecords": "Загрузка...",
+            //        "processing":     "Обработка...",
+            //        "search":         "Поиск:",
+            //        "zeroRecords":    "Тут ничего нет",
+            //        "paginate": {
+            //                "first": "Первая",
+            //                "last": "Последняя",
+            //                "next": "Следующая",
+            //                "previous": "Предыдущая"
+            //                }
+            //        },
 
             },
             {
@@ -106,14 +97,9 @@
 
         $('#from_date').dtDateTime();
         $('#to_date').dtDateTime();
-        $('.filters input').on('change paste', function() {
+        $('.filters').on('change paste', function() {
         $('#datatable_redflags').DataTable().ajax.reload(null, false);
-<!--        alert(flags_sorting)-->
     });
-
-
-
-
     });
 
 

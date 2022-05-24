@@ -4,16 +4,31 @@
 {% block content %}
 <body>
 <main class="container">
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <h1>Hello</h1>
+  <table>
+    <tbody>
+      <tr>
+        <th>Flag ID</th>
+        <td>{{ object.irregularity.pk }}</td>
+      </tr>
+      <tr>
+        <th>Flag Name</th>
+        <td>{{ object.name }}</td>
+      </tr>
+      <tr>
+        <th>Flag Description</th>
+        <td>{{ object.irregularity.description }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 <div class="my-3 p-3 bg-white rounded shadow-sm">
   <h3>{{ object.irregularity.pk }}, {{ object.name }}</h3>
   <div class="table rounded">
     <table class="table table-bordered table-sm">
-      <thead class="table-dark">
-        <tr>
-          <th>procuring entity</th>
-          <th>tender</th>
-        </tr>
-      </thead>
       <tbody>
       {% for key, value in object.data.items %}
         <tr>

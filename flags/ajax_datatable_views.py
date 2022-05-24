@@ -1,7 +1,16 @@
 from ajax_datatable.views import AjaxDatatableView
+from django.db.models import Count
 from django.template.loader import render_to_string
 
 from flags.models import Tender, Flag
+
+
+def get_param(key, request):
+    try:
+        value = request.POST.get(key)
+    except:
+        value = None
+    return value
 
 
 class RedFlagsAjaxDatatableView(AjaxDatatableView):
@@ -12,7 +21,11 @@ class RedFlagsAjaxDatatableView(AjaxDatatableView):
 
     column_defs = [
         AjaxDatatableView.render_row_tools_column_def(),
-        {'name': 'id', 'visible': False},
+        {
+            'name': 'id',
+            'visible': False,
+            # 'orderable': True,
+        },
         {
             'name': 'procuring_entity',
             'searchable': False,
@@ -20,13 +33,43 @@ class RedFlagsAjaxDatatableView(AjaxDatatableView):
             'max_length': 50,
             'foreign_field': 'procuring_entity__name',
         },
-        {'name': 'Tender', 'searchable': False, 'orderable': False},
-        {'name': 'Status', 'searchable': False, 'orderable': False},
-        {'name': 'Method', 'searchable': False, 'orderable': False},
-        {'name': 'Price', 'searchable': False, 'orderable': False},
-        {'name': 'start_time', 'searchable': False},
-        {'name': 'end_time', 'searchable': False},
-        {'name': 'Flags', 'searchable': False, 'orderable': False, 'max_length': 4},
+        {
+            'name': 'Tender',
+            'searchable': False,
+            'orderable': False,
+         },
+        {
+            'name': 'Status',
+            'searchable': False,
+            'orderable': False,
+         },
+        {
+            'name': 'Method',
+            'searchable': False,
+            'orderable': False,
+         },
+        {
+            'name': 'Price',
+            'searchable': False,
+            'orderable': False,
+         },
+        {
+            'name': 'start_time',
+            'searchable': False,
+            'orderable': True,
+         },
+        {
+            'name': 'end_time',
+            'searchable': False,
+            'orderable': False,
+         },
+        {
+            'name': 'Flags',
+            'searchable': False,
+            'orderable': True,
+            'max_length': 4,
+            # 'm2m_foreign_field': 'flags__name',
+        },
     ]
 
     def render_row_details(self, pk, request=None):
@@ -51,34 +94,25 @@ class RedFlagsAjaxDatatableView(AjaxDatatableView):
         flags_id = Flag.objects.all().values_list('tender_id')
         queryset = Tender.objects.filter(pk__in=flags_id)
 
-        def get_param(key):
-            try:
-                value = request.POST.get(key)
-            except:
-                value = None
-            return value
-
-        flag_type = get_param('flag_type')
+        flag_type = get_param('flag_type', request)
         if flag_type is not None and flag_type != '':
             queryset = queryset.filter(flags__name=flag_type)
 
-        from_date = get_param('from_date')
+        from_date = get_param('from_date', request)
         if from_date is not None and from_date != '':
             queryset = queryset.filter(start_time__gte=from_date)
 
-        to_date = get_param('to_date')
+        to_date = get_param('to_date', request)
         if to_date is not None and to_date != '':
             queryset = queryset.filter(start_time__lte=to_date)
 
-        procuring_entity = get_param('procuring_entity')
+        procuring_entity = get_param('procuring_entity', request)
         if procuring_entity is not None and procuring_entity != '':
             queryset = queryset.filter(procuring_entity__name__icontains=procuring_entity)
 
-        tenders = get_param('tenders')
+        tenders = get_param('tenders', request)
         if tenders is not None and tenders != '':
             queryset = queryset.filter(name__icontains=tenders)
-
-        # queryset.annotate(cf=Count('flags')).order_by('-cf').first().flags.all()
 
         return queryset
 
