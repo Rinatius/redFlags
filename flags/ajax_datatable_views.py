@@ -61,12 +61,12 @@ class RedFlagsAjaxDatatableView(AjaxDatatableView):
         {
             'name': 'end_time',
             'searchable': False,
-            'orderable': False,
+            'orderable': True,
          },
         {
             'name': 'Flags',
             'searchable': False,
-            'orderable': True,
+            # 'orderable': True,
             'max_length': 4,
             # 'm2m_foreign_field': 'flags__name',
         },
