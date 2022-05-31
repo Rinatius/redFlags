@@ -1,1 +1,10 @@
-NF035
+{% extends 'flags/flags_base.html' %}
+{% load flags_tags %}
+{% block flag %}
+<tr><th>ID ТЕНДЕРА</th><td>{{ object.data | get_item:'tender/id' }}</td></tr>
+<tr><th>ID ЛОТА</th><td>{{ object.data | get_item:'tender/lots/0/id' }}</td></tr>
+<tr><th>ЛОТ</th><td>{{ object.data | get_item:'tender/lots/0/title' }}</td></tr>
+<tr><th>СТОИМОСТЬ</th><td>{{ object.data | get_item:'tender/lots/0/value/amount' }} {{ object.data | get_item:'tender/lots/0/value/currency' }}</td></tr>
+<tr><th>АДРЕС</th><td>{{ object.data | get_item:'tender/lots/0/deliveryAddress' }}</td></tr>
+<tr><th>СРОК</th><td>{{ object.data | get_item:'tender/lots/0/deliveryDateDetails' }}</td></tr>
+{% endblock %}

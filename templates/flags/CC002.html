@@ -2,8 +2,8 @@
 {% load flags_tags %}
 {% block flag %}
 <tbody>
-<tr><th>ID ТЕНДЕРА</th><td>{{ object.data | get_item:'tender_number' }}</td></tr>
+<tr><th>ID УЧАСТНИКА</th><td>{{ object.data | get_item:'parties/0/id' }}</td></tr>
 <tr><th>УЧАСТНИК</th><td>{{ object.data | get_item:'parties/0/identifier/legalName' }}</td></tr>
-<tr><th>АДРЕС</th><td>{{ object.data | get_item:'check_address' }}</td></tr>
+<tr><th>СВЯЗИ</th><td>{{ object.data | get_item:'chain_info' }}</td></tr>
 </tbody>
 {% endblock %}

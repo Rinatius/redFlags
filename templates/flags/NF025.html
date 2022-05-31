@@ -1,1 +1,10 @@
-NF025
+{% extends 'flags/flags_base.html' %}
+{% load flags_tags %}
+{% block flag %}
+<tbody>
+<tr><th>ID УЧАСТНИКА</th><td>{{ object.data | get_item:'parties/0/id'}}</td></tr>
+<tr><th>УЧАСТНИК</th><td>{{ object.data | get_item:'parties/0/identifier/legalName'}}</td></tr>
+<tr><th>ЧИСЛО СТАВОК</th><td>{{ object.data | get_item:'total_bids'}}</td></tr>
+<tr><th>ЧИСЛО ПРОИГРЫШЕЙ</th><td>{{ object.data | get_item:'lose_bids_number'}}</td></tr>
+</tbody>
+{% endblock %}

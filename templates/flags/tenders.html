@@ -1,7 +1,10 @@
 {% extends "flags/base.html" %}
+{% load static %}
 {% load flags_tags %}
 
 {% block content %}
+<script type="text/javascript" src="{% static 'flags/js/tenders.js' %}"></script>
+<input type="hidden" id="Url" data-url="{% url 'ajax_datatable_redflags' %}" />
 
 <div class="container">
 
@@ -9,7 +12,7 @@
     <div class="row">
       <div class="col">
           <label for="flag_type">Flag type</label>
-          <input class="form-control" type="text" id="flag_type" list="flagsList">
+          <input type="search" class="form-control" id="flag_type" list="flagsList">
           {% get_flag_types as flag_types %}
           <datalist id="flagsList">
             {% for flag_type in flag_types %}
@@ -21,10 +24,10 @@
         <div class="row">
           <label for="from_date">Tender's start date</label>
           <div class="col">
-            <input class="form-control" id="from_date" placeholder="From">
+            <input type="search" class="form-control" id="from_date" placeholder="From">
           </div>
           <div class="col">
-            <input class="form-control" id="to_date" placeholder="To">
+            <input type="search" class="form-control" id="to_date" placeholder="To">
           </div>
         </div>
       </div>
@@ -32,7 +35,7 @@
     <div class="row">
       <div class="col">
         <label for="procuring_entity">Procuring Entity</label>
-        <input class="form-control" id="procuring_entity" list="entitiesList">
+        <input type="search" class="form-control" id="procuring_entity" list="entitiesList">
         {% get_all_entities as entities %}
         <datalist id="entitiesList">
           {% for entity in entities %}
@@ -42,7 +45,7 @@
       </div>
       <div class="col">
           <label for="tenders">Tender</label>
-          <input class="form-control" id="tenders">
+          <input type="search" class="form-control" id="tenders">
       </div>
     </div>
   </div>
@@ -54,57 +57,5 @@
   </div>
   </div>
 </div>
-
-<script language="javascript">
-
-    $(document).ready(function() {
-        AjaxDatatableViewUtils.initialize_table(
-            $('#datatable_redflags'),
-            "{% url 'ajax_datatable_redflags' %}",
-            {
-            // ordering: false,
-            // paging: false,
-            scrollX: false,
-            //language: {
-            //        "emptyTable":     "Ой, тут пусто",
-            //        "info":           "Строки с _START_ по _END_ из _TOTAL_ объектов",
-            //        "infoEmpty":      "Строки с 0 по 0 из 0 объектов",
-            //        "infoFiltered":   "(filtered from _MAX_ total entries)",
-            //        // "infoPostFix":    "",
-            //        // "thousands":      ",",
-            //        "lengthMenu":     "_MENU_ Объектов на странице",
-            //        "loadingRecords": "Загрузка...",
-            //        "processing":     "Обработка...",
-            //        "search":         "Поиск:",
-            //        "zeroRecords":    "Тут ничего нет",
-            //        "paginate": {
-            //                "first": "Первая",
-            //                "last": "Последняя",
-            //                "next": "Следующая",
-            //                "previous": "Предыдущая"
-            //                }
-            //        },
-
-            },
-            {
-                flag_type: function() { return $('input#flag_type').val() },
-                from_date: function() { return $('input#from_date').val() },
-                to_date: function() { return $('input#to_date').val() },
-                tenders: function() { return $('input#tenders').val() },
-                procuring_entity: function() { return $('input#procuring_entity').val() },
-            }
-        );
-
-        $('#from_date').dtDateTime();
-        $('#to_date').dtDateTime();
-        $('.filters').on('change paste', function() {
-        $('#datatable_redflags').DataTable().ajax.reload(null, false);
-    });
-    });
-
-
-
-
-</script>
 
 {% endblock %}

@@ -1,1 +1,15 @@
-NF058
+{% extends 'flags/flags_base.html' %}
+{% load flags_tags %}
+{% block flag %}
+<tbody>
+<tr><th>УЧАСТНИК</th><td>{{ object.data | get_item:'parties/0/identifier/legalName' }}</td></tr>
+<tr><th>ID ТЕНДЕРА</th><td>{{ object.data | get_item:'tender/id' }}</td></tr>
+<tr><th>ID ЛОТА</th><td>{{ object.data | get_item:'tender/lots/0/id' }}</td></tr>
+<tr><th>ЛОТ</th><td>{{ object.data | get_item:'tender/lots/0/title' }}</td></tr>
+<tr><th>СТОИМОСТЬ</th><td>{{ object.data | get_item:'tender/lots/0/value/amount' }} {{ object.data | get_item:'tender/lots/0/value/currency' }}</td></tr>
+<tr><th>АДРЕС</th><td>{{ object.data | get_item:'tender/lots/0/deliveryAddress' }}</td></tr>
+<tr><th>СРОК</th><td>{{ object.data | get_item:'tender/lots/0/deliveryDateDetails' }}</td></tr>
+<tr><th>НАИМЕНЬШАЯ СТАВКА</th><td>{{ object.data | get_item:'lowest_bid' }} {{ object.data | get_item:'tender/lots/0/value/currency' }}</td></tr>
+<tr><th>ВТОРАЯ НАИМЕНЬШАЯ СТАВКА</th><td>{{ object.data | get_item:'second_lowest_bid' }} {{ object.data | get_item:'tender/lots/0/value/currency' }}</td></tr>
+</tbody>
+{% endblock %}

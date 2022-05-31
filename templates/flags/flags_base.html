@@ -1,0 +1,54 @@
+{% load flags_tags %}
+
+<main class="container">
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+
+  <h3>{{ object.tender.name }}</h3>
+  <a href="{{ object.tender.url }}" target="_blank"><button type="button" class="btn btn-primary">Перейти на страницу тендера</button></a>
+  <hr>
+  <h5>Описание флага</h5>
+<!--  {% get_flag_description 'NF018' %}-->
+  {% with flag_type=object.irregularity.pk %}
+  {% get_flag_description flag_type %}
+  <hr>
+  <div class="row">
+    <div class="col-md-4">
+<!--      <div class="card border-light mb-3">-->
+      <div class="card text-bg-light mb-3">
+      <h5><div class="card-header">Информация о флаге</div></h5>
+      <div class="card-body">
+        <div class="card-text">
+        <table class="table table-sm">
+          <tbody>
+          <tr>
+            <th>Тип</th>
+            <td><abbr title="{% get_flag_description flag_type %}">{{ flag_type }}</abbr></td>
+          </tr>
+          <tr>
+            <th>Название</th>
+            <td>{{ object.name }}</td>
+          </tr>
+          <tr>
+            <th>Описание</th>
+            <td>{{ object.irregularity.description }}</td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      </div>
+    </div>
+    {% endwith %}
+
+    <div class="col-md-8">
+      <div class="table">
+        <table class="table table-sm">
+          {% block flag %}
+          {% endblock %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
