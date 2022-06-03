@@ -6,25 +6,25 @@ $(document).ready(function() {
         // ordering: false,
         // paging: false,
         scrollX: false,
-        //language: {
-        //        "emptyTable":     "Ой, тут пусто",
-        //        "info":           "Строки с _START_ по _END_ из _TOTAL_ объектов",
-        //        "infoEmpty":      "Строки с 0 по 0 из 0 объектов",
-        //        "infoFiltered":   "(filtered from _MAX_ total entries)",
-        //        // "infoPostFix":    "",
-        //        // "thousands":      ",",
-        //        "lengthMenu":     "_MENU_ Объектов на странице",
-        //        "loadingRecords": "Загрузка...",
-        //        "processing":     "Обработка...",
-        //        "search":         "Поиск:",
-        //        "zeroRecords":    "Тут ничего нет",
-        //        "paginate": {
-        //                "first": "Первая",
-        //                "last": "Последняя",
-        //                "next": "Следующая",
-        //                "previous": "Предыдущая"
-        //                }
-        //        },
+        language: {
+                "emptyTable":     "Ой, тут пусто",
+                "info":           "Строки с _START_ по _END_ из _TOTAL_ объектов",
+                "infoEmpty":      "Строки с 0 по 0 из 0 объектов",
+                "infoFiltered":   "(filtered from _MAX_ total entries)",
+                // "infoPostFix":    "",
+                // "thousands":      ",",
+                "lengthMenu":     "_MENU_ Объектов на странице",
+                "loadingRecords": "Загрузка...",
+                "processing":     "Загрузка...",
+                "search":         "Поиск:",
+                "zeroRecords":    "Тут ничего нет",
+                "paginate": {
+                        "first": "Первая",
+                        "last": "Последняя",
+                        "next": "Следующая",
+                        "previous": "Предыдущая"
+                        }
+                },
 
         },
         {
