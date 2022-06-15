@@ -28,6 +28,7 @@ class RedFlagsAjaxDatatableView(AjaxDatatableView):
         },
         {
             'name': 'procuring_entity',
+            'title': 'Закупающая организация',
             'searchable': False,
             'orderable': False,
             'max_length': 50,
@@ -35,36 +36,43 @@ class RedFlagsAjaxDatatableView(AjaxDatatableView):
         },
         {
             'name': 'Tender',
+            'title': 'Тендер',
             'searchable': False,
             'orderable': False,
          },
         {
             'name': 'Status',
+            'title': 'Статус',
             'searchable': False,
             'orderable': False,
          },
         {
             'name': 'Method',
+            'title': 'Метод',
             'searchable': False,
             'orderable': False,
          },
         {
             'name': 'Price',
+            'title': 'Сумма закупки',
             'searchable': False,
             'orderable': False,
          },
         {
             'name': 'start_time',
+            'title': 'Дата публикации',
             'searchable': False,
             'orderable': True,
          },
         {
             'name': 'end_time',
+            'title': 'Срок подачи',
             'searchable': False,
             'orderable': True,
          },
         {
             'name': 'Flags',
+            'title': 'Флаги',
             'searchable': False,
             # 'orderable': True,
             'max_length': 4,

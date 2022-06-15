@@ -6,4 +6,13 @@
 <tr><th>УЧАСТНИК</th><td>{{ object.data | get_item:'parties/0/identifier/legalName' }}</td></tr>
 <tr><th>АДРЕС</th><td>{{ object.data | get_item:'check_address' }}</td></tr>
 </tbody>
+
+          <tbody>
+          {% for key, value in object.data.items %}
+            <tr>
+              <td>{{ key }}</td>
+              <td>{{ value }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
 {% endblock %}

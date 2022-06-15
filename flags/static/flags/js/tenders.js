@@ -4,8 +4,31 @@ $(document).ready(function() {
         $("#Url").attr("data-url"),
         {
         // ordering: false,
-        // paging: false,
         scrollX: false,
+        dom: "<'row justify-content-between'<'col-auto'l><'col-auto'B>>rt<'row justify-content-between'<'col-auto'i><'col-auto'p>>",
+        buttons: {
+            dom: {
+                button: {
+                    className: 'btn btn-sm btn-primary buttons-html5'
+                }
+            },
+            buttons: [
+
+            {
+            extend: 'copy',
+            text: 'Скопировать',
+            className: 'buttons-copy'
+        },
+        {
+            extend: 'csv',
+            text: 'Сохранить в csv',
+            className: 'buttons-csv',
+//            customize: function(csv) {
+//                return csv
+//            }
+        }
+        ],
+        },
         language: {
                 "emptyTable":     "Ой, тут пусто",
                 "info":           "Строки с _START_ по _END_ из _TOTAL_ объектов",

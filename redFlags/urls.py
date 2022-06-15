@@ -53,7 +53,8 @@ router.register(api_v1 + r'flag_data',
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('details/<str:pk>/', app.FlagDetailsView.as_view(), name='flag-details'),
-    path('home/', app.index, name='home'),
+    path('main/', app.home_page, name='home'),
+    path('tenders/', app.table, name='table'),
     path(
         'datatables/redflags/',
         ajax_datatable_views.RedFlagsAjaxDatatableView.as_view(),

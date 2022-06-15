@@ -10,8 +10,12 @@ from flags.serializer import TenderSerializer, LotSerializer, EntitySerializer, 
 from django.shortcuts import render
 
 
-def index(request):
+def table(request):
     return render(request, 'flags/tenders.html', {})
+
+
+def home_page(request):
+    return render(request, 'flags/home_page.html')
 
 
 class FlagDetailsView(DetailView):

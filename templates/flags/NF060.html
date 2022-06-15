@@ -4,17 +4,17 @@
 <tbody>
 <tr><th>ID ТЕНДЕРА</th><td>{{ object.data | get_item:'tender_number' }}</td></tr>
 <tr><th>УЧАСТНИК</th><td>{{ object.data | get_item:'parties/0/identifier/legalName' }}</td></tr>
-<tr><th>СТОИМОСТЬ</th><td>{{ object.data | get_item:'tender/lots/0/value/amount' }} {{ object.data | get_item:'tender/lots/0/value/currency' }}</td></tr>
+<tr><th>СТОИМОСТЬ</th><td>{{ object.data | get_item:'contracts/0/value/amount' }} {{ object.data | get_item:'contracts/0/value/currency' }}</td></tr>
 <tr><th>СУММА КОНТРАКТА</th><td>{{ object.data | get_item:'total_supplier_award' }} {{ object.data | get_item:'contracts/0/value/currency' }}</td></tr>
 </tbody>
 
-          <tbody>
-          {% for key, value in object.data.items %}
-            <tr>
-              <td>{{ key }}</td>
-              <td>{{ value }}</td>
-            </tr>
-          {% endfor %}
-          </tbody>
+<!--          <tbody>-->
+<!--          {% for key, value in object.data.items %}-->
+<!--            <tr>-->
+<!--              <td>{{ key }}</td>-->
+<!--              <td>{{ value }}</td>-->
+<!--            </tr>-->
+<!--          {% endfor %}-->
+<!--          </tbody>-->
 
 {% endblock %}

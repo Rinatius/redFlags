@@ -11,7 +11,7 @@
   <div class="my-3 p-3 bg-white rounded shadow-sm filters">
     <div class="row">
       <div class="col">
-          <label for="flag_type">Flag type</label>
+          <label for="flag_type">Тип Флага</label>
           <input type="search" class="form-control" id="flag_type" list="flagsList">
           {% get_flag_types as flag_types %}
           <datalist id="flagsList">
@@ -22,19 +22,19 @@
       </div>
       <div class="col">
         <div class="row">
-          <label for="from_date">Tender's start date</label>
+          <label for="from_date">Дата публикации тендера</label>
           <div class="col">
-            <input type="search" class="form-control" id="from_date" placeholder="From">
+            <input type="search" class="form-control" id="from_date" placeholder="С">
           </div>
           <div class="col">
-            <input type="search" class="form-control" id="to_date" placeholder="To">
+            <input type="search" class="form-control" id="to_date" placeholder="По">
           </div>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <label for="procuring_entity">Procuring Entity</label>
+        <label for="procuring_entity">Закупающая организация</label>
         <input type="search" class="form-control" id="procuring_entity" list="entitiesList">
         {% get_all_entities as entities %}
         <datalist id="entitiesList">
@@ -44,7 +44,7 @@
         </datalist>
       </div>
       <div class="col">
-          <label for="tenders">Tender</label>
+          <label for="tenders">Название тендера</label>
           <input type="search" class="form-control" id="tenders">
       </div>
     </div>

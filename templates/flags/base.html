@@ -3,53 +3,13 @@
 <html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Red Flags</title>
-
-<!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.11.5/date-1.1.2/fh-3.2.2/sb-1.3.2/sp-2.0.0/datatables.min.css"/>-->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
-<!--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>-->
-<!--    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.11.5/date-1.1.2/fh-3.2.2/sb-1.3.2/sp-2.0.0/datatables.min.js"></script>-->
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"/>
-    <link href="{% static 'flags/css/style.css' %}" rel="stylesheet" />
-    <script type="text/javascript" src="{% static 'flags/js/utils.js' %}"></script>
-<!--    <script type="text/javascript" src="{% static 'flags/js/redflags_script.js' %}"></script>-->
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap5.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.bootstrap5.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap5.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/searchbuilder/1.3.3/css/searchBuilder.bootstrap5.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/searchpanes/2.0.1/css/searchPanes.bootstrap5.css"/>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚩</text></svg>">
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap5.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.bootstrap5.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap5.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/searchbuilder/1.3.3/js/dataTables.searchBuilder.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/searchbuilder/1.3.3/js/searchBuilder.bootstrap5.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/searchpanes/2.0.1/js/dataTables.searchPanes.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/searchpanes/2.0.1/js/searchPanes.bootstrap5.js"></script>
+{% include 'flags/head.html' %}
+      <link href="{% static 'flags/css/cover.css' %}" rel="stylesheet">
 
 </head>
 
 <body
-        background="https://www.toptal.com/designers/subtlepatterns/uploads/double-bubble-outline.png"
+        background="{% static 'flags/images/double-bubble-outline.png' %}"
         style="background-attachment:fixed"
 >
 
@@ -59,8 +19,18 @@
       <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
         <strong>Red Flags</strong>
       </a>
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link px-2 text-white" href="{% url 'home' %}">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-2 text-white" href="{% url 'table' %}">Тендеры</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-2 text-white" href="#">Контакты</a>
+        </li>
+      </ul>
     </div>
-      <a href="https://bit.ly/3GKuFdb" target="_blank" style="opacity:0.07">hello, it's me</a>
     </div>
 </header>
 {% block content %}
