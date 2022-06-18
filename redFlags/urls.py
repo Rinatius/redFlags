@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import DefaultRouter
+from rest_framework.schemas import get_schema_view
 
 import flags.views as app
 from flags import ajax_datatable_views
@@ -46,9 +47,7 @@ router.register(api_v1 + r'irregularities',
 router.register(api_v1 + r'flags',
                 app.FlagViewSet,
                 basename='flag')
-router.register(api_v1 + r'flag_data',
-                app.FlagDataViewSet,
-                basename='flag_data')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -60,4 +59,7 @@ urlpatterns = [
         ajax_datatable_views.RedFlagsAjaxDatatableView.as_view(),
         name='ajax_datatable_redflags'
     ),
+    path('openapi/', get_schema_view(
+        title='redFlagsAPI',
+    ), name='openapi-schema')
 ] + router.urls

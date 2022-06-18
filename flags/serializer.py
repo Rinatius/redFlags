@@ -52,7 +52,3 @@ class ClassifierSerializer(serializers.ModelSerializer):
         model = Classifier
         fields = '__all__'
 
-class FlagDataSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Flag
-        fields = ['data']

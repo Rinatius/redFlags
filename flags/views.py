@@ -5,7 +5,7 @@ from rest_framework.pagination import PageNumberPagination
 from flags.models import Entity, Tender, Lot, Classifier, Bid, Irregularity, Flag
 from flags.permissions import MainAccessPolicy
 from flags.serializer import TenderSerializer, LotSerializer, EntitySerializer, ClassifierSerializer, BidSerializer, \
-    IrregularitySerializer, FlagSerializer, FlagDataSerializer
+    IrregularitySerializer, FlagSerializer
 
 from django.shortcuts import render
 
@@ -87,10 +87,3 @@ class FlagViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return MainAccessPolicy.scope_queryset(self.request, Flag.objects.all())
 
-
-class FlagDataViewSet(viewsets.ModelViewSet):
-    serializer_class = FlagDataSerializer
-    permission_classes = (MainAccessPolicy,)
-
-    def get_queryset(self):
-        return MainAccessPolicy.scope_queryset(self.request, Flag.objects.all())

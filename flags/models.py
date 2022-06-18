@@ -4,14 +4,14 @@ import datetime
 
 class BaseDatesModel(models.Model):
     created_at = models.DateTimeField(
-        auto_now_add=True,
-        # default=datetime.datetime(2022, 2, 1),
+        # auto_now_add=True,
+        default=datetime.datetime(2022, 2, 1),
         help_text="Time of creation"
     )
 
     updated_at = models.DateTimeField(
-        auto_now=True,
-        # default=datetime.datetime(2022, 2, 1),
+        # auto_now=True,
+        default=datetime.datetime(2022, 2, 1),
         help_text="Last update time"
     )
 
